@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Engineer — Interview Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0f1a;
+    --surface: #141829;
+    --surface-hover: #1a1f36;
+    --border: #252a40;
+    --border-accent: #3b4268;
+    --text: #e2e6f0;
+    --text-dim: #8891b0;
+    --text-muted: #5a6380;
+    --accent-green: #34d399;
+    --accent-green-bg: rgba(52, 211, 153, 0.08);
+    --accent-green-border: rgba(52, 211, 153, 0.2);
+    --accent-blue: #60a5fa;
+    --accent-blue-bg: rgba(96, 165, 250, 0.08);
+    --accent-blue-border: rgba(96, 165, 250, 0.2);
+    --accent-amber: #fbbf24;
+    --accent-amber-bg: rgba(251, 191, 36, 0.08);
+    --accent-amber-border: rgba(251, 191, 36, 0.2);
+    --accent-purple: #a78bfa;
+    --accent-purple-bg: rgba(167, 139, 250, 0.08);
+    --accent-purple-border: rgba(167, 139, 250, 0.2);
+    --accent-red: #f87171;
+    --accent-red-bg: rgba(248, 113, 113, 0.08);
+    --accent-red-border: rgba(248, 113, 113, 0.2);
+    --accent-cyan: #22d3ee;
+    --accent-cyan-bg: rgba(34, 211, 238, 0.08);
+    --accent-cyan-border: rgba(34, 211, 238, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .header-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+
+  .header-sub strong {
+    color: var(--accent-blue);
+  }
+
+  .header-reminder {
+    margin-top: 20px;
+    padding: 14px 20px;
+    background: var(--accent-green-bg);
+    border: 1px solid var(--accent-green-border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--accent-green);
+    display: inline-block;
+    font-weight: 500;
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding: 8px;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 12px;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+  }
+
+  .nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav a:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .nav a.active {
+    background: var(--accent-green-bg);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green-border);
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .section-header .section-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--border-accent);
+  }
+
+  .card-header {
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    user-select: none;
+  }
+
+  .card-header:hover {
+    background: var(--surface-hover);
+  }
+
+  .card-toggle {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: transform 0.25s ease, background 0.2s;
+  }
+
+  .card.open .card-toggle {
+    transform: rotate(90deg);
+    background: var(--accent-green-bg);
+    color: var(--accent-green);
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 15px;
+    flex: 1;
+  }
+
+  .card-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .badge-green { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid var(--accent-green-border); }
+  .badge-blue { background: var(--accent-blue-bg); color: var(--accent-blue); border: 1px solid var(--accent-blue-border); }
+  .badge-amber { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid var(--accent-amber-border); }
+  .badge-purple { background: var(--accent-purple-bg); color: var(--accent-purple); border: 1px solid var(--accent-purple-border); }
+
+  .card-body {
+    display: none;
+    padding: 0 22px 22px;
+  }
+
+  .card.open .card-body {
+    display: block;
+  }
+
+  /* Content elements */
+  .explain-box {
+    padding: 16px 18px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .explain-box.what {
+    background: var(--accent-blue-bg);
+    border: 1px solid var(--accent-blue-border);
+    color: var(--accent-blue);
+  }
+
+  .explain-box.matt {
+    background: var(--accent-green-bg);
+    border: 1px solid var(--accent-green-border);
+    color: var(--accent-green);
+  }
+
+  .explain-box.process {
+    background: var(--accent-purple-bg);
+    border: 1px solid var(--accent-purple-border);
+    color: var(--accent-purple);
+  }
+
+  .explain-box.warn {
+    background: var(--accent-amber-bg);
+    border: 1px solid var(--accent-amber-border);
+    color: var(--accent-amber);
+  }
+
+  .explain-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .explain-box p {
+    margin-bottom: 8px;
+  }
+
+  .explain-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Flow steps */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 14px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .flow-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    min-width: 20px;
+    padding-top: 1px;
+  }
+
+  .flow-text {
+    color: var(--text-dim);
+  }
+
+  .flow-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Command blocks */
+  .cmd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: rgba(0,0,0,0.3);
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: var(--accent-cyan);
+    margin: 10px 0;
+    overflow-x: auto;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Quick ref table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+
+  .ref-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-dim);
+    vertical-align: top;
+  }
+
+  .ref-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent-amber);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .ref-table tr:hover td {
+    background: rgba(255,255,255,0.015);
+  }
+
+  /* Success metrics */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .metric {
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .metric-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .metric-proof {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-green);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Day in life timeline */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin: 16px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border-accent);
+  }
+
+  .tl-item {
+    position: relative;
+    padding: 10px 0 10px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 16px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent-cyan);
+  }
+
+  .tl-item strong {
+    color: var(--text);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tl-matt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-green);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav { position: static; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .skill-group h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .skill-check {
+    color: var(--accent-green);
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .skill-item strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Expand all button */
+  .expand-all {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .expand-all:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--border-accent);
+  }
+
+  /* Inline highlight */
+  em.hl {
+    font-style: normal;
+    color: var(--accent-green);
+    font-weight: 500;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; color: #1a1a2e; }
+    body::before { display: none; }
+    .nav { display: none; }
+    .card { break-inside: avoid; border-color: #ddd; }
+    .card-body { display: block !important; }
+    .card-toggle { display: none; }
+    .explain-box { border-width: 2px; }
+    .explain-box.what { background: #eef4ff; color: #2563eb; }
+    .explain-box.matt { background: #ecfdf5; color: #059669; }
+    .explain-box.process { background: #f3f0ff; color: #7c3aed; }
+    .explain-box.warn { background: #fffbeb; color: #d97706; }
+    .ref-table td:first-child { color: #b45309; }
+    .flow-num { color: #0891b2; }
+    .cmd { background: #f1f5f9; color: #0e7490; border-color: #e2e8f0; }
+    .header-reminder { background: #ecfdf5; border-color: #a7f3d0; color: #059669; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-label">Interview Preparation</div>
+    <h1>Support Engineer Cheat Sheet</h1>
+    <div class="header-sub">Functional Deep Dive with <strong>Alex Yarotsky</strong> (CTO) & <strong>Sergey Gaychuk</strong> (EM)</div>
+    <div class="header-reminder">💡 They already know your work. This interview is confirmation, not discovery.</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#customer-facing" class="active">Customer-Facing</a>
+    <a href="#problem-solving">Problem Solving</a>
+    <a href="#implementation">Implementation</a>
+    <a href="#collaboration">Collaboration</a>
+    <a href="#success">Success Metrics</a>
+    <a href="#day-in-life">Day in the Life</a>
+    <a href="#tech-skills">Technical Skills</a>
+    <a href="#soft-skills">Soft Skills</a>
+    <a href="#troubleshooting">Troubleshooting Flows</a>
+  </nav>
+
+  <!-- ===================== CUSTOMER-FACING ===================== -->
+  <div class="section" id="customer-facing">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-blue-bg); color: var(--accent-blue);">🎧</div>
+      <div>
+        <h2>Customer-Facing Technical Support</h2>
+      </div>
+      <div class="section-desc">What the role does</div>
+    </div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Join Sales & Success calls for technical questions</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>Sales and Success teams sometimes hit technical questions they can't answer — API capabilities, deployment options, how integrations work. The Support Engineer joins those calls as the technical expert to unblock the conversation and help close deals or onboard customers faster.</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p>You already collaborate across Sales, Success, and Support at Hubstaff. You built the <em class="hl">API Support Hub</em> specifically to help agents answer API questions without needing engineering. You built <em class="hl">Hubble Hub</em> which pulls from Slack, Outline, Help Docs, and the Product Roadmap to give teams instant answers. You're the person people already come to for technical questions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Handle escalations across tickets, emails, calls & screenshares</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>When frontline support, sales, or success teams hit a wall on a technical issue, it gets escalated to the Support Engineer. You own the problem across whatever channel it comes through — you don't just answer and pass it back, you drive it to resolution.</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p>You handle escalations daily. Your take-home exercise showed exactly how you'd manage escalations across three different scenarios — and you referenced real escalations you've worked with T2 engineers like <em class="hl">Orlin Hernandez</em>, <em class="hl">Aleksandr Pavluchenko</em>, <em class="hl">Alexander Olkov</em>, and <em class="hl">Daniel Soriano</em>. You don't just escalate — you investigate first and bring findings to engineering.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Troubleshoot APIs, MSI, networking, MDM & integrations</div>
+        <div class="card-badge badge-blue">Core technical areas</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means in plain English</div>
+          <p><strong>APIs</strong> — Hubstaff's programming interface that lets other software talk to it. Customers use it to pull time data, manage users, build custom reports.<br>
+          <strong>MSI</strong> — The Windows installer file format. Enterprise IT teams use msiexec to silently install Hubstaff on hundreds of machines at once, no clicking through wizards.<br>
+          <strong>MDM</strong> — Mobile Device Management (Intune for Windows, Jamf for Mac). IT admins push Hubstaff to devices remotely through these tools.<br>
+          <strong>Networking</strong> — Firewalls, proxies, DNS, SSL/TLS. Corporate networks can block Hubstaff without anyone realising.<br>
+          <strong>Integrations</strong> — Hubstaff connecting with other tools (Jira, Asana, QuickBooks, etc.).</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p><strong>APIs:</strong> Built the entire API Support Hub and API Documentation Hub. You know error codes, endpoints, and common failure patterns.<br>
+          <strong>MSI/MDM:</strong> Your take-home Exercise 1 demonstrated deep understanding of macOS .pkg deployment, MDM workflows, and the msiexec command structure. You built interactive simulations for both.<br>
+          <strong>Networking:</strong> Exercise 3 covered SSL/TLS inspection, firewalls, proxies, and DNS — with a real escalation example of the SSL handshake failure.<br>
+          <strong>Logs:</strong> You literally built the tools that diagnose these issues — the Log Analyzer and Audit Log Analyzer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Provide clear, empathetic explanations for customers</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>Customers aren't engineers. The Support Engineer needs to take a complex technical finding — like "your corporate proxy is performing SSL inspection which breaks the TLS handshake" — and turn it into something actionable: "Your network security software is intercepting Hubstaff's connection. Here's what your IT team needs to change."</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p>Your entire Exercise 3 customer response demonstrated this perfectly. You explained corporate firewall issues in plain language, gave step-by-step instructions with exact paths for both Windows and macOS, and framed "this isn't something we can fix on our side" with empathy — not blame. You've been doing this every day in support for years.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PROBLEM SOLVING ===================== -->
+  <div class="section" id="problem-solving">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-bg); color: var(--accent-purple);">🔍</div>
+      <div>
+        <h2>Technical Problem Solving & Analysis</h2>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">MSI Silent Installation Failures</div>
+        <div class="card-badge badge-purple">Key scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What it is</div>
+          <p>An enterprise customer is deploying Hubstaff via MSI to hundreds of machines and some fail. You need to figure out why.</p>
+        </div>
+        <div class="explain-box process">
+          <div class="explain-label">How I'd investigate</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Check the install log</strong> — msiexec creates verbose logs with /l*v. The log tells you exactly where and why it failed.</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Verify permissions</strong> — Is the user running the install an admin? Non-admin users on macOS can't install to /Applications. On Windows, was it run with elevated privileges or via Group Policy/Intune?</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Check for previous installs</strong> — MSI can't always upgrade over an existing installation. May need to uninstall first.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Check dependencies</strong> — Missing .NET Framework or Visual C++ Redistributable can block installation.</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Check Group Policy</strong> — Corporate policies may be blocking software installation. Run gpresult /h report.html to export policy settings.</div></div>
+          </div>
+        </div>
+        <div class="cmd">msiexec /i hubstaff.msi /qn /norestart /l*v C:\logs\install.txt</div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your proof</div>
+          <p>Your take-home Exercise 1 covered this in detail. You also built the <em class="hl">MSI/MDM Simulation tool</em> to practice these scenarios interactively.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">RDS Users Not Being Tracked</div>
+        <div class="card-badge badge-purple">Key scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What it is</div>
+          <p>Remote Desktop Services (RDS) lets multiple users share one Windows Server. Hubstaff needs to track each user's session independently. Sometimes some users get tracked and others don't.</p>
+        </div>
+        <div class="explain-box process">
+          <div class="explain-label">How I'd investigate</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>How was Hubstaff installed?</strong> — Per-machine install vs per-user install matters. Per-user might only run in one session.</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Check for multiple instances</strong> — Multiple Hubstaff processes can conflict. Only one should run per user session.</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>User profile issues</strong> — App may not auto-start for specific user profiles. Check startup entries and the automatic tracking policy.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Permissions</strong> — The app needs access to screen/input for each individual session. Check if accessibility and screen recording permissions are granted per-user.</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Check logs per user</strong> — Collect hubstaff.log from each affected user's session to isolate the failure point.</div></div>
+          </div>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your proof</div>
+          <p>You built the <em class="hl">RDS Simulation tool</em> for exactly this scenario. Your study guide covers RDS components (Session Host, Gateway, CALs, RDP on port 3389). You understand the multi-session complexity.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Document findings & act as feedback loop to Engineering</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>When you spot patterns — the same bug appearing across multiple tickets, a feature that confuses every customer, an edge case the product doesn't handle — you document it and share it with Product and Engineering so it gets fixed at the source.</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p>You don't just document — you build tools that surface patterns automatically. The <em class="hl">Log Analyzer</em> identifies common issues like screenshot health problems, simulated input, session resume failures. The <em class="hl">Hubble Hub</em> feedback analytics track what agents are searching for. You've already collaborated with engineering on the session resume bug (167hr duration) that led to an actual product fix.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== IMPLEMENTATION ===================== -->
+  <div class="section" id="implementation">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-amber-bg); color: var(--accent-amber);">🚀</div>
+      <div>
+        <h2>Implementation & Onboarding Support</h2>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Assist large customers with onboarding & deployment</div>
+        <div class="card-badge badge-amber">Key responsibility</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>Big customers (hundreds or thousands of users) need hands-on help deploying Hubstaff. This means understanding their IT environment (MDM solution, network setup, OS mix), creating a deployment plan, and troubleshooting issues as they roll out.</p>
+        </div>
+        <div class="explain-box process">
+          <div class="explain-label">How I'd approach a large rollout</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Discovery</strong> — What's their environment? Windows/macOS mix? MDM solution (Intune/Jamf/other)? Firewall/proxy setup? Number of users?</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Pre-deployment checklist</strong> — Automatic tracking policy created and set as default? .mobileconfig deployed for macOS? Firewall rules whitelisting Hubstaff domains?</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Pilot group</strong> — Deploy to 5-10 users first. Verify data appears in dashboard within 15 minutes. Fix issues before scaling.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Full rollout</strong> — Push via MDM to all devices. Monitor the Computers page in Hubstaff for registration and policy assignment.</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Validation</strong> — Confirm all users appear, data is flowing, no blank screenshots, no connectivity issues.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Help customers adopt Silent Install, API, integrations & payroll</div>
+        <div class="card-badge badge-amber">Key responsibility</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>Each of these features has its own complexity. Silent Install requires MDM or admin access. The API requires authentication setup and understanding of endpoints. Integrations need configuration on both sides. Payroll involves financial data and requires accuracy.</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p><strong>Silent Install:</strong> Exercise 1 — deep knowledge of macOS and Windows deployment methods.<br>
+          <strong>API:</strong> Built the entire API Support Hub. You know the error codes, endpoints, and auth flow.<br>
+          <strong>Integrations:</strong> Your daily support work involves helping customers connect Hubstaff to their other tools.<br>
+          <strong>Payroll:</strong> You support payroll-related queries regularly and understand the sensitivity of financial data.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Develop scalable onboarding content</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>Instead of hand-holding every customer through the same setup, you create documentation, guides, and tools that let customers self-serve — reducing support volume and speeding up adoption.</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your experience</div>
+          <p>This is one of your biggest strengths. Every tool you've built is scalable onboarding content:</p>
+          <p>• <em class="hl">API Support Hub</em> — agents can diagnose API errors without escalating<br>
+          • <em class="hl">Log Analyzer</em> — support can diagnose tracking issues without engineering<br>
+          • <em class="hl">Hubble Hub</em> — AI-powered search across four knowledge sources<br>
+          • <em class="hl">Interactive simulations</em> — training tools for MSI, MDM, RDS, networking, SAML/SSO<br>
+          • <em class="hl">READMEs & documentation</em> — every tool ships with clear docs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== COLLABORATION ===================== -->
+  <div class="section" id="collaboration">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-cyan-bg); color: var(--accent-cyan);">🤝</div>
+      <div>
+        <h2>Internal Collaboration & Process Building</h2>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Help define and shape the Support Engineer role</div>
+        <div class="card-badge badge-amber">Exciting opportunity</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What this means</div>
+          <p>This is a new role at Hubstaff. You won't just fill a position — you'll help define what it looks like. What workflows should exist? What documentation is needed? What's the escalation path? How does the role interact with Sales, Success, and Engineering?</p>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Why this fits you</div>
+          <p>You've already been doing this informally. You identified gaps in the support toolkit and built solutions without being asked. You created the API Support Hub because agents needed it. You built the Log Analyzer because diagnostics were slow. You created Hubble Hub because knowledge was scattered. You don't wait for someone to define a process — you build it.</p>
+        </div>
+        <div class="explain-box warn">
+          <div class="explain-label">Interview tip</div>
+          <p>If they ask "how would you shape this role?" — talk about what you've already done. You've already been defining what a Support Engineer does at Hubstaff through your actions. Share your vision: the tools, the workflows, the documentation, the feedback loops to engineering.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Cross-team collaboration & internal tooling</div>
+        <div class="card-badge badge-green">You do this</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box matt">
+          <div class="explain-label">Your collaboration history</div>
+          <p><strong>Engineering:</strong> Collaborated with Sergey on API error codes, worked with T2 engineers (Orlin, Aleksandr, Alexander, Daniel) on escalations, learned Git workflows from Aleksandr Remniov, made your first PR to the company repo.<br><br>
+          <strong>Product/Leadership:</strong> Alex Yarotsky directly encouraged you to explore engineering roles. Maarten (Growth EM) has been a collaborator on Hubble Hub direction.<br><br>
+          <strong>Support:</strong> Built tools used by the entire support team. Created the Chrome extension for the Log Analyzer so agents could access it faster.<br><br>
+          <strong>Knowledge sharing:</strong> Hubble Hub unifies Slack, Outline, Help Docs, and the Product Roadmap into one searchable interface with role-specific responses for Support and Customer Success.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SUCCESS ===================== -->
+  <div class="section" id="success">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-green-bg); color: var(--accent-green);">📊</div>
+      <div>
+        <h2>Success Looks Like</h2>
+      </div>
+      <div class="section-desc">& how you've already delivered</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-icon">🎯</div>
+        <div class="metric-label">High implementation success rates for silent install, API, MDM</div>
+        <div class="metric-proof">→ Built diagnostic tools that accelerate this</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">⚡</div>
+        <div class="metric-label">Reduced technical bottlenecks for Sales & Success</div>
+        <div class="metric-proof">→ API Hub + Hubble Hub reduce escalations</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">😊</div>
+        <div class="metric-label">Strong post-implementation CSAT</div>
+        <div class="metric-proof">→ Clear, empathetic communication style</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">🔧</div>
+        <div class="metric-label">Faster resolution of complex technical issues</div>
+        <div class="metric-proof">→ Log Analyzer + Audit Analyzer speed up diagnosis</div>
+      </div>
+      <div class="metric">
+        <div class="metric-icon">📝</div>
+        <div class="metric-label">Clear, actionable documentation</div>
+        <div class="metric-proof">→ READMEs, user guides, Notion portfolio docs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DAY IN LIFE ===================== -->
+  <div class="section" id="day-in-life">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-cyan-bg); color: var(--accent-cyan);">📅</div>
+      <div>
+        <h2>A Day in the Life</h2>
+      </div>
+      <div class="section-desc">What this role looks like daily</div>
+    </div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Typical day mapped to your experience</div>
+      </div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="tl-item">
+            <strong>Review escalated tickets & identify urgent technical issues</strong>
+            Triage what's come in overnight, prioritise by impact and urgency.
+            <div class="tl-matt">→ You already triage and handle escalations daily in support</div>
+          </div>
+          <div class="tl-item">
+            <strong>Join a Sales call to explain API capabilities & deployment options</strong>
+            A prospect wants to know if Hubstaff's API can pull custom reports for their payroll system.
+            <div class="tl-matt">→ You built the API Documentation Hub — you know the endpoints and capabilities</div>
+          </div>
+          <div class="tl-item">
+            <strong>Troubleshoot MDM config via screenshare</strong>
+            A customer's Intune deployment shows "installed" but the app isn't running. Walk them through the fix.
+            <div class="tl-matt">→ Your Exercise 2 covered exactly this scenario — policy misconfiguration</div>
+          </div>
+          <div class="tl-item">
+            <strong>Partner with Engineering to isolate a root cause</strong>
+            You've found a pattern across multiple tickets — same error, same conditions. Loop in engineering.
+            <div class="tl-matt">→ You've done this with the session resume bug and SSL handshake failures</div>
+          </div>
+          <div class="tl-item">
+            <strong>Document a recurring issue & share insights with Product</strong>
+            Write up the pattern, impact, and suggested fix. Post in the relevant Slack channel.
+            <div class="tl-matt">→ Hubble Hub's feedback analytics already surface these patterns</div>
+          </div>
+          <div class="tl-item">
+            <strong>Assist Success with a large customer rollout</strong>
+            An enterprise client is deploying to 500 machines. Help ensure silent install and user provisioning go smoothly.
+            <div class="tl-matt">→ Your take-home exercises demonstrated this exact competency</div>
+          </div>
+          <div class="tl-item">
+            <strong>Update internal documentation & improve a workflow</strong>
+            A process is manual and error-prone. You create a tool or doc to fix it.
+            <div class="tl-matt">→ This is literally what you do — you built tools to replace manual processes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TECH SKILLS ===================== -->
+  <div class="section" id="tech-skills">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-amber-bg); color: var(--accent-amber);">💻</div>
+      <div>
+        <h2>Technical Skills</h2>
+      </div>
+      <div class="section-desc">What they ask for → what you bring</div>
+    </div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Skills mapping</div>
+      </div>
+      <div class="card-body">
+        <table class="ref-table">
+          <thead>
+            <tr><th>They want</th><th>Your evidence</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>APIs & scripting</td>
+              <td>Built the API Support Hub (47 error codes, endpoint docs, diagnostic tool). Learned bash scripting with mergelog. Built multiple JavaScript applications. Made your first PR to the company repo.</td>
+            </tr>
+            <tr>
+              <td>Software dev lifecycle</td>
+              <td>You follow a proper workflow: build → test locally → commit with conventional messages → push → deploy. You use Git daily, collaborate via PRs, and understand staging vs production.</td>
+            </tr>
+            <tr>
+              <td>MSI & MDM</td>
+              <td>Take-home Exercises 1 & 2. Built MSI/MDM simulation. Know msiexec flags, Intune LOB app deployment flow, .mobileconfig for macOS permissions.</td>
+            </tr>
+            <tr>
+              <td>Networking</td>
+              <td>Take-home Exercise 3. Built network troubleshooting simulation. Understand firewalls, proxies, DNS, SSL/TLS inspection. Know the diagnostic commands (nslookup, Test-NetConnection, netsh).</td>
+            </tr>
+            <tr>
+              <td>Security & compliance</td>
+              <td>Understand SSL/TLS, certificate inspection, SAML SSO (built a simulation), 2FA, permissions models on macOS and Windows.</td>
+            </tr>
+            <tr>
+              <td>Troubleshoot integrations</td>
+              <td>Daily support work involves integration issues. API Support Hub helps diagnose integration failures through error codes and troubleshooting guidance.</td>
+            </tr>
+            <tr>
+              <td>Logs & diagnostics</td>
+              <td>Built two full diagnostic tools — Log Analyzer (hubstaff.log) and Audit Log Analyzer (audit.log). Added screenshot health analysis, silent app health dashboard, virtual scrolling, multi-file upload and merge.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SOFT SKILLS ===================== -->
+  <div class="section" id="soft-skills">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-purple-bg); color: var(--accent-purple);">🧠</div>
+      <div>
+        <h2>Soft Skills</h2>
+      </div>
+    </div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">What they're looking for & how you demonstrate it</div>
+      </div>
+      <div class="card-body">
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3 style="color: var(--accent-purple);">They want</h3>
+            <div class="skill-item"><span class="skill-check">→</span><div><strong>"Trust but verify" approach</strong> — Doesn't assume, validates solutions before recommending them</div></div>
+            <div class="skill-item"><span class="skill-check">→</span><div><strong>Simplify complex concepts</strong> — Make technical things understandable for non-technical people</div></div>
+            <div class="skill-item"><span class="skill-check">→</span><div><strong>Empathy & patience</strong> — Customer-first mindset, calm under pressure</div></div>
+            <div class="skill-item"><span class="skill-check">→</span><div><strong>Strong ownership</strong> — Own problems from start to finish, don't just pass them along</div></div>
+            <div class="skill-item"><span class="skill-check">→</span><div><strong>Detail-oriented & collaborative</strong> — Work well across teams, nothing falls through the cracks</div></div>
+          </div>
+          <div class="skill-group">
+            <h3 style="color: var(--accent-green);">Your proof</h3>
+            <div class="skill-item"><span class="skill-check">✓</span><div>Your Exercise 1 — verified user was actually Standard, not Admin, before jumping to conclusions</div></div>
+            <div class="skill-item"><span class="skill-check">✓</span><div>Exercise 3 customer response — explained SSL inspection in plain English with actionable steps</div></div>
+            <div class="skill-item"><span class="skill-check">✓</span><div>Years of support experience. You care about customers. Your tone in the take-home was warm and professional.</div></div>
+            <div class="skill-item"><span class="skill-check">✓</span><div>You don't just escalate — you investigate first, bring findings, and follow through. You built tools because you saw problems that needed solving.</div></div>
+            <div class="skill-item"><span class="skill-check">✓</span><div>Collaborated with T2 engineers, engineering managers, CTO. Made your first PR. Ship tools with documentation.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TROUBLESHOOTING FLOWS ===================== -->
+  <div class="section" id="troubleshooting">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-red-bg); color: var(--accent-red);">🔧</div>
+      <div>
+        <h2>Troubleshooting Flows</h2>
+      </div>
+      <div class="section-desc">Step-by-step for common scenarios</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Silent App won't install</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Which OS?</strong> — macOS needs .pkg, Windows needs .msi. Wrong installer = instant fail.</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>User permissions?</strong> — macOS: is the user an admin? Windows: was it run elevated or via MDM with SYSTEM privileges?</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Previous install?</strong> — Check if an older version exists. Uninstall first if needed.</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Check install logs</strong> — Windows: use /l*v flag. macOS: check Console.app or installer log.</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>MDM deployment?</strong> — If using Intune/Jamf: is the app assigned to the correct group? Has the device checked in recently?</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>macOS permissions?</strong> — Was .mobileconfig deployed first? Without it, Accessibility and Screen Recording prompts will block functionality even if the install succeeds.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">App installed but no data showing</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Automatic tracking policy?</strong> — Does one exist? Is "Automatically add new members" ON? Is it set as the default auto-add policy?</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Check the Computers page</strong> — Silent App → Computers. Are the devices registered? Are users assigned to a policy?</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Network connectivity?</strong> — Can the device reach hubstaff.com, app.hubstaff.com, client-api.hubstaff.com on port 443?</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Collect logs</strong> — Check for "Failed to fetch enterprise profile" (network), "No tracking policy" (config), "Authentication failed" (wrong org/token).</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>SSL inspection?</strong> — Corporate firewall intercepting HTTPS? Check certificate issuer when browsing to api.hubstaff.com.</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Session resume bug?</strong> — If logs show "session resume discarded" with unusually long duration, app may need restart or update.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Works off-network, fails on corporate network</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Confirm the pattern</strong> — Does data sync immediately on mobile hotspot? If yes, it's 100% a network issue, not Hubstaff.</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Test DNS</strong> — <code>nslookup app.hubstaff.com</code> — if it fails or returns unexpected IPs, DNS filtering is blocking Hubstaff.</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Test port 443</strong> — <code>Test-NetConnection app.hubstaff.com -Port 443</code> — TcpTestSucceeded: False means firewall is blocking.</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Check SSL inspection</strong> — Browse to https://api.hubstaff.com, inspect the certificate. If issuer is "Zscaler Root CA" or similar = SSL inspection is active and breaking the connection.</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Check proxy</strong> — <code>netsh winhttp show proxy</code> — is a proxy configured? Does Hubstaff need proxy settings?</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Collect logs while on corporate network</strong> — Look for "SSL connect error", "Connection timeout", "TLS handshake failed".</div></div>
+          <div class="flow-step"><div class="flow-num">07</div><div class="flow-text"><strong>Provide IT team with whitelist</strong> — hubstaff.com, app.hubstaff.com, client-api.hubstaff.com, hubstaff-api.herokuapp.com, hubstaff-production.s3.amazonaws.com — port 443 outbound.</div></div>
+        </div>
+        <div class="explain-box warn">
+          <div class="explain-label">Key framing for the customer</div>
+          <p>"Unfortunately we can't modify your network configuration from our side, but we can help you and your IT team resolve this quickly." — Own the troubleshooting, guide them to the fix, but be clear about what Hubstaff can and can't control.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">RDS — some users not tracked</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Installation type?</strong> — Was Hubstaff installed per-machine or per-user? Per-machine is required for RDS so it runs in all user sessions.</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>How many instances?</strong> — Check Task Manager on the server. There should be one Hubstaff process per active user session, not just one total.</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>User profiles</strong> — Is the app set to auto-start for all users? Check startup entries in each affected user's profile.</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Tracking policy</strong> — Are the untracked users assigned to an automatic tracking policy?</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Permissions per session</strong> — Can the app access screen capture and input for each session? RDS sessions can have different permission levels.</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Collect per-user logs</strong> — Get hubstaff.log from each affected user's session to compare what's different from the working users.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Screenshots are blank or black</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Desktop only</strong> — Screenshots only work on desktop apps (Windows, macOS, Linux). Not mobile.</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Security software?</strong> — McAfee, Norton, Webroot, or similar web-shield/firewall software can interfere with screen capture. Have them temporarily disable to test.</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>VirtualBox running?</strong> — VirtualBox is known to cause blank screenshots.</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Computer going to sleep?</strong> — Sleep during tracking can produce black screenshots. Check power settings.</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>macOS permissions?</strong> — Screen Recording permission must be granted in System Preferences → Privacy & Security. Without it, screenshots will be blank.</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Check logs for helper crashes</strong> — The screenshot helper process may be crashing. Log Analyzer's screenshot health analysis can identify this.</div></div>
+        </div>
+        <div class="explain-box matt">
+          <div class="explain-label">Your proof</div>
+          <p>You added screenshot health analysis to the Log Analyzer after seeing a real case where screenshots appeared to upload successfully but were actually blank. The tool now detects blank risk factors automatically — permissions issues, antivirus interference, sleep events, and helper crashes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">API integration not working</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Scenario</div>
+      </div>
+      <div class="card-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>What error code?</strong> — Check the HTTP status and Hubstaff error code. Your API Support Hub maps all 47 error codes to causes and fixes.</div></div>
+          <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Authentication</strong> — Is the token valid? Has it expired? Hubstaff uses OpenID Connect. Check 10xxx error codes (Auth category).</div></div>
+          <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Rate limiting</strong> — Are they hitting rate limits? Check for 429 responses or rate limit error codes.</div></div>
+          <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Correct endpoint?</strong> — Are they using the right URL, method (GET/POST/PUT), and parameters?</div></div>
+          <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Permissions</strong> — Does their token have the right scopes for what they're trying to do?</div></div>
+          <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Validation errors</strong> — Check 11xxx codes. Are they sending valid data in the request body?</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference Commands -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">Quick reference — diagnostic commands</div>
+        <div class="card-badge badge-blue">Cheat sheet</div>
+      </div>
+      <div class="card-body">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>nslookup hubstaff.com</td><td>Check if DNS can resolve Hubstaff's servers</td></tr>
+            <tr><td>ping hubstaff.com</td><td>Check basic network connectivity</td></tr>
+            <tr><td>Test-NetConnection app.hubstaff.com -Port 443</td><td>Check if port 443 (HTTPS) is open (PowerShell)</td></tr>
+            <tr><td>nc -zv app.hubstaff.com 443</td><td>Same as above but for macOS/Linux</td></tr>
+            <tr><td>netsh winhttp show proxy</td><td>Show Windows proxy configuration</td></tr>
+            <tr><td>gpresult /h report.html</td><td>Export Group Policy settings (shows firewall rules)</td></tr>
+            <tr><td>netstat -an | find "443"</td><td>Check active connections on port 443</td></tr>
+            <tr><td>msiexec /i pkg.msi /qn /l*v log.txt</td><td>Silent install with verbose logging</td></tr>
+            <tr><td>msiexec /x pkg.msi /qn</td><td>Silent uninstall</td></tr>
+          </tbody>
+        </table>
+        <table class="ref-table" style="margin-top: 20px;">
+          <thead>
+            <tr><th>Log location</th><th>Platform</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>%APPDATA%\Hubstaff\logs</td><td>Windows (Desktop App)</td></tr>
+            <tr><td>%APPDATA%\HubstaffSilent\logs</td><td>Windows (Silent App)</td></tr>
+            <tr><td>~/Library/Application Support/Hubstaff/logs</td><td>macOS (Desktop App)</td></tr>
+            <tr><td>~/Library/Application Support/HubstaffSilent</td><td>macOS (Silent App)</td></tr>
+          </tbody>
+        </table>
+        <table class="ref-table" style="margin-top: 20px;">
+          <thead>
+            <tr><th>Hubstaff domain</th><th>Required for</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>hubstaff.com</td><td>Main website & dashboard</td></tr>
+            <tr><td>app.hubstaff.com</td><td>Web application</td></tr>
+            <tr><td>client-api.hubstaff.com</td><td>Desktop/mobile app communication</td></tr>
+            <tr><td>hubstaff-api.herokuapp.com</td><td>API endpoints</td></tr>
+            <tr><td>hubstaff-production.s3.amazonaws.com</td><td>Screenshot uploads & file storage</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleCard(header) {
+    const card = header.closest('.card');
+    card.classList.toggle('open');
+  }
+
+  // Nav highlighting on scroll
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-80px 0px -60% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+
+  // Smooth scroll
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
