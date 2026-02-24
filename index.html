@@ -609,7 +609,8 @@
 
   <!-- Navigation -->
   <nav class="nav" id="nav">
-    <a href="#customer-facing" class="active">Customer-Facing</a>
+    <a href="#interview-focus" class="active" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">★ Interview Focus</a>
+    <a href="#customer-facing">Customer-Facing</a>
     <a href="#problem-solving">Problem Solving</a>
     <a href="#implementation">Implementation</a>
     <a href="#collaboration">Collaboration</a>
@@ -619,6 +620,181 @@
     <a href="#soft-skills">Soft Skills</a>
     <a href="#troubleshooting">Troubleshooting Flows</a>
   </nav>
+
+  <!-- ===================== INTERVIEW FOCUS AREAS ===================== -->
+  <div class="section" id="interview-focus" style="margin-bottom: 56px;">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--accent-red-bg); color: var(--accent-red);">★</div>
+      <div>
+        <h2>The Four Things They'll Ask About</h2>
+      </div>
+      <div class="section-desc">From Amanda's email</div>
+    </div>
+
+    <!-- FOCUS 1: Diagnosing & Resolving Complex Issues -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">1. How you diagnose & resolve complex technical issues for customer-facing teams</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Key topic</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What they want to hear</div>
+          <p>They want to understand your troubleshooting <strong>methodology</strong> — not just that you fixed something, but <em>how</em> you approached it. They also want to see that you understand the wider context: when Sales is waiting on you, or Success has a frustrated customer, your diagnosis needs to be fast, accurate, and communicated clearly to non-technical stakeholders.</p>
+        </div>
+
+        <div class="explain-box process">
+          <div class="explain-label">Your methodology — walk them through this</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Reproduce & understand the scope</strong> — Who's affected? One user or many? One OS or all? One network or everywhere? This narrows the search immediately.</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Collect evidence</strong> — Logs first. Always logs first. Get hubstaff.log, audit.log, install logs. Ask for screenshots of errors. Get the environment details (OS, version, network setup).</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Isolate the layer</strong> — Is this an installation issue, a permissions issue, a network issue, a configuration issue, or a product bug? Each has a different fix path.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Test the hypothesis</strong> — "Trust but verify." If you think it's a firewall issue, test with a hotspot. If you think it's permissions, test with an admin account. Don't assume — prove it.</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Fix or escalate with findings</strong> — If it's config/setup, guide the customer through the fix. If it's a bug, escalate to Engineering with the evidence, logs, and reproduction steps so they can act immediately.</div></div>
+            <div class="flow-step"><div class="flow-num">06</div><div class="flow-text"><strong>Document & close the loop</strong> — Record the pattern so the next occurrence is faster to resolve. Feed insights back to Product if the issue reveals a usability gap.</div></div>
+          </div>
+        </div>
+
+        <div class="explain-box matt">
+          <div class="explain-label">Your stories — pick one to tell</div>
+          <p><strong>Story 1: The SSL handshake failure</strong><br>
+          A customer's Silent App wasn't syncing data on their corporate network but worked perfectly on mobile hotspot. I worked with T2 to collect logs, which showed <code style="font-size:12px; color: var(--accent-cyan);">SSL connect error... Connection was reset in connection to app.hubstaff.com:443</code>. We isolated it layer by layer: DNS resolved fine, TCP connected fine, but the TLS handshake failed — meaning something on the network was intercepting encrypted traffic. Diagnosis: their corporate firewall was performing SSL inspection. Solution: IT team added Hubstaff domains to the SSL inspection bypass list. I documented this as a pattern for future tickets.</p>
+          <p style="margin-top: 12px;"><strong>Story 2: The 167-hour session resume bug</strong><br>
+          A customer reported the Silent App was running but not tracking. Logs showed the app launched on restart but discarded the previous session because the duration was 167 hours — way beyond any reasonable session. This wasn't a customer configuration issue; it was a product bug. I escalated to Engineering with the specific log entries and reproduction conditions. It was fixed in the next Silent App release. This is the feedback loop in action — support finding edge cases that Engineering can't see from their side.</p>
+          <p style="margin-top: 12px;"><strong>Story 3: The "admin who wasn't admin" case</strong><br>
+          macOS users reporting installation failures. They claimed to be admins. Instead of taking their word for it, I asked them to check System Preferences → Users & Groups. They were Standard users. The fix was simple — either have an actual admin run the installer, or deploy via MDM. The lesson: always verify the basics before going deep. "Trust but verify."</p>
+          <p style="margin-top: 12px;"><strong>Story 4: Blank screenshots</strong><br>
+          A user and their manager reported screenshots were being uploaded, but the actual images were blank. The Log Analyzer showed screenshot upload events succeeding — misleading. I investigated and found the issue was likely security software interfering with screen capture. I then added screenshot health analysis to the Log Analyzer so it now automatically detects blank risk factors (permissions, antivirus, sleep, helper crashes) — turning a single ticket into a tool improvement that helps every future case.</p>
+        </div>
+
+        <div class="explain-box warn">
+          <div class="explain-label">How to frame for Sales/Success context</div>
+          <p>When Sales or Success are waiting on you, time matters. Emphasise that your approach is designed for speed: <em>"I start by asking targeted questions to narrow the scope quickly, so I'm not wasting time investigating the wrong layer. If I can't resolve it on the first interaction, I set clear expectations about next steps and timelines so the customer-facing team can keep the relationship warm."</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOCUS 2: Helping Customers Adopt Advanced Features -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">2. Your experience helping customers adopt advanced features & troubleshoot roadblocks</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Key topic</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What they want to hear</div>
+          <p>Can you take a customer from "I want to deploy this" to "it's working perfectly" — especially for complex features like silent installation, MDM deployment, API integrations? They want to see that you can guide implementations, anticipate roadblocks, and create resources that scale beyond one-to-one support.</p>
+        </div>
+
+        <div class="explain-box matt">
+          <div class="explain-label">Your stories — pick one to tell</div>
+          <p><strong>Story 1: Guiding a Silent App deployment</strong><br>
+          Enterprise customers deploying the Silent App often hit roadblocks they don't expect — macOS permissions blocking installation for non-admin users, automatic tracking policies not being configured, .mobileconfig files not being deployed before the .pkg. My approach is to front-load the common pitfalls: before the customer even starts deploying, I walk them through a pre-deployment checklist. Does the tracking policy exist? Is "Automatically add new members" enabled? Have they deployed the .mobileconfig first on macOS? Have they whitelisted Hubstaff domains on their firewall? This prevents 80% of the issues I see in post-deployment escalations.</p>
+          <p style="margin-top: 12px;"><strong>Story 2: API adoption support</strong><br>
+          When customers want to integrate with Hubstaff's API, they often struggle with authentication (OpenID Connect), hit rate limits they don't expect, or use the wrong endpoints. I built the <em class="hl">API Support Hub</em> to address this at scale — it maps all 47 error codes to plain-English causes and fixes, includes endpoint documentation, and has a Message Analyzer that can diagnose an error from a pasted API response. Instead of every API question becoming an escalation, agents can resolve most issues themselves.</p>
+          <p style="margin-top: 12px;"><strong>Story 3: Building tools that scale adoption</strong><br>
+          Rather than answering the same questions one-to-one, I build tools that help the entire team. The <em class="hl">Log Analyzer</em> lets any support agent diagnose tracking issues without needing engineering knowledge. <em class="hl">Hubble Hub</em> searches four knowledge sources at once so agents can find answers to customer questions in seconds. The <em class="hl">interactive simulations</em> (MSI, MDM, RDS, networking, SAML/SSO) help the team understand complex deployment environments. Each tool started from a real customer problem and became a reusable resource.</p>
+        </div>
+
+        <div class="explain-box process">
+          <div class="explain-label">How I'd approach a large implementation</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Discovery call</strong> — Understand their environment: OS mix, MDM solution, network security, number of users, timeline, who their IT contact is.</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Pre-deployment checklist</strong> — Tracking policy configured? .mobileconfig ready? Firewall rules set? Correct installer for each OS? I'd create a shared document the customer can follow.</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Pilot group (5-10 users)</strong> — Deploy to a small group first. Validate data appears within 15 minutes. Catch issues before they affect 500 machines.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Full rollout with monitoring</strong> — Push via MDM to all devices. Monitor the Computers page for registration. Be available for quick troubleshooting during the rollout window.</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Post-deployment validation</strong> — All users appearing? Data flowing? No blank screenshots? No connectivity issues? Confirm with the customer and document anything specific to their environment.</div></div>
+          </div>
+        </div>
+
+        <div class="explain-box warn">
+          <div class="explain-label">Key phrase to use</div>
+          <p><em>"I think the best way to reduce roadblocks is to anticipate them. Most deployment issues I've seen follow predictable patterns — permissions, policy configuration, network blocking. If I can front-load those checks before the customer starts, the implementation goes much smoother and we reduce the back-and-forth."</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOCUS 3: Familiarity with Technical Environments & Tools -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">3. Your familiarity with technical environments & tools</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Key topic</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What they want to hear</div>
+          <p>They're not expecting a DevOps engineer. They want someone who understands these environments well enough to troubleshoot issues, ask the right questions, and guide customers. The job spec says "familiarity" and "basic understanding" — not expert-level. Be honest about where you're strong and where you're still learning.</p>
+        </div>
+
+        <div class="explain-box matt">
+          <div class="explain-label">Your honest self-assessment — be upfront</div>
+          <p><strong>APIs — Strong ✅</strong><br>
+          Built the API Support Hub covering all 47 error codes. Understand REST concepts, HTTP methods, status codes, authentication flows (OpenID Connect), rate limiting. Built multiple applications that interact with APIs (Hubble Hub uses Slack API, Outline API, Claude API). Collaborated with Sergey on the /v2/error_codes endpoint.</p>
+          <p style="margin-top: 10px;"><strong>MDM Configuration & Deployment — Solid foundational knowledge ✅</strong><br>
+          Understand the Intune deployment flow (upload MSI as LOB app → assign to groups → devices check in → install silently → report status). Know the macOS .mobileconfig pre-approval process. Built an interactive simulation to practice scenarios. Haven't done hands-on Intune administration myself, but understand the concepts and common failure points well enough to troubleshoot and guide customers.</p>
+          <p style="margin-top: 10px;"><strong>MSI / Silent Installation — Strong ✅</strong><br>
+          Know the msiexec command flags (/i, /x, /qn, /norestart, /l*v). Understand common failure reasons (permissions, previous installs, dependencies, Group Policy). Know the difference between macOS .pkg and Windows .msi deployment paths. Take-home Exercise 1 demonstrated this in depth.</p>
+          <p style="margin-top: 10px;"><strong>Networking — Solid ✅</strong><br>
+          Understand firewalls, proxies, DNS, SSL/TLS, and port requirements. Know the diagnostic commands (nslookup, ping, Test-NetConnection, netsh, nc). Can identify SSL inspection from certificate chain. Take-home Exercise 3 was entirely about network troubleshooting. Built a simulation for practice.</p>
+          <p style="margin-top: 10px;"><strong>Integrations — Solid ✅</strong><br>
+          Handle integration-related support tickets regularly. Understand how Hubstaff connects with third-party tools (Jira, Asana, QuickBooks, etc.). The API Support Hub helps diagnose integration failures through error code mapping.</p>
+          <p style="margin-top: 10px;"><strong>Logs & System Diagnostics — Very strong ✅</strong><br>
+          Built two full diagnostic tools from scratch. Understand hubstaff.log and audit.log patterns. Added screenshot health analysis, silent app health dashboard, session tracking, geofence analysis. Can read and interpret log files to isolate root causes.</p>
+          <p style="margin-top: 10px;"><strong>Scripting & Development — Growing 📈</strong><br>
+          Comfortable with JavaScript, HTML, CSS. Learning bash (mergelog script). Use Git daily with conventional commits. Made first PR to company repo. Not a professional developer, but can build functional tools that solve real problems — and I'm learning fast.</p>
+        </div>
+
+        <div class="explain-box warn">
+          <div class="explain-label">How to handle "what don't you know?"</div>
+          <p><em>"I haven't done hands-on Intune or Jamf administration myself — I understand the concepts and the deployment flow, but I haven't been the admin pushing buttons in the console. That said, I learn by building: when I needed to understand MSI deployments, I built a simulation. When I needed to understand networking issues, I built a troubleshooting tool. I'd take the same approach with any gap — get hands-on, build something, and learn by doing."</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOCUS 4: Translating Technical Depth into Clear Guidance -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-toggle">▶</div>
+        <div class="card-title">4. How you translate technical depth into clear, practical guidance</div>
+        <div class="card-badge badge-red" style="background: var(--accent-red-bg); color: var(--accent-red); border: 1px solid var(--accent-red-border);">Key topic</div>
+      </div>
+      <div class="card-body">
+        <div class="explain-box what">
+          <div class="explain-label">What they want to hear</div>
+          <p>This is about communication. Can you take something technically complex and make it actionable for different audiences? A customer needs different language than an engineer. A Sales rep needs a different level of detail than a Support agent. They want to see that you adjust your communication based on who you're talking to.</p>
+        </div>
+
+        <div class="explain-box matt">
+          <div class="explain-label">Your stories — pick one to tell</div>
+          <p><strong>Story 1: The SSL explanation (customer-facing)</strong><br>
+          In your Exercise 3 response, you took a complex networking issue — SSL/TLS inspection breaking the HTTPS handshake — and translated it into: <em>"Your network security software is intercepting Hubstaff's connection. Here's what your IT team needs to change."</em> You then gave step-by-step instructions with the exact file paths for both Windows and macOS, so the customer could collect what you needed without needing to understand the underlying networking concepts.</p>
+          <p style="margin-top: 12px;"><strong>Story 2: Building tools as translation (internal stakeholders)</strong><br>
+          The Log Analyzer is fundamentally a translation tool. It takes raw log files that are gibberish to most people and translates them into plain-English summaries, health scores, and actionable findings. Screenshot health analysis doesn't say "helper process exited with code 1" — it says "Screenshot Blank Risk: antivirus software may be interfering with screen capture." That's technical depth translated into practical guidance that any support agent can act on.</p>
+          <p style="margin-top: 12px;"><strong>Story 3: Different audiences, different language</strong><br>
+          When you explain something to a customer, you focus on what they need to <em>do</em>. When you escalate to Engineering, you focus on the <em>evidence</em> — exact log entries, reproduction steps, what you've already ruled out. When you share with the Support team, you focus on <em>patterns</em> — "if you see this symptom, check these three things." Same technical knowledge, three different translations.</p>
+        </div>
+
+        <div class="explain-box process">
+          <div class="explain-label">Your framework for clear communication</div>
+          <div class="flow">
+            <div class="flow-step"><div class="flow-num">01</div><div class="flow-text"><strong>Know your audience</strong> — Customer? Focus on actions and next steps. Engineer? Focus on evidence and reproduction. Sales/Success? Focus on the answer and the timeline.</div></div>
+            <div class="flow-step"><div class="flow-num">02</div><div class="flow-text"><strong>Lead with the answer</strong> — Don't make people wade through your investigation. Start with what they need to know, then provide supporting detail if they want it.</div></div>
+            <div class="flow-step"><div class="flow-num">03</div><div class="flow-text"><strong>Be specific</strong> — Don't say "check your firewall settings." Say "Ask your IT team to whitelist these five domains on port 443 outbound" and list them.</div></div>
+            <div class="flow-step"><div class="flow-num">04</div><div class="flow-text"><strong>Use empathy</strong> — Acknowledge the frustration before jumping to the fix. "I understand this is blocking your team" goes a long way before "here's what we need to do."</div></div>
+            <div class="flow-step"><div class="flow-num">05</div><div class="flow-text"><strong>Make it reusable</strong> — If you've explained it once well, turn it into documentation or a tool so everyone benefits. That's how the API Support Hub, Log Analyzer, and Hubble Hub were born.</div></div>
+          </div>
+        </div>
+
+        <div class="explain-box warn">
+          <div class="explain-label">Key phrase to use</div>
+          <p><em>"I think the best technical communication is when the customer doesn't realise how complex the issue was. If they walk away thinking 'that was easy,' that's a win — even if the diagnosis behind the scenes was difficult. My goal is always to make the solution feel simple and actionable, regardless of the technical depth underneath."</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===================== CUSTOMER-FACING ===================== -->
   <div class="section" id="customer-facing">
